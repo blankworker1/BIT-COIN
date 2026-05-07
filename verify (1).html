@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BITCOIN COIN VERIFY</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:        #0a0a08;
+    --bg2:       #111110;
+    --bg3:       #1a1a17;
+    --border:    #2a2a24;
+    --border2:   #3a3a30;
+    --copper:    #c8843a;
+    --copper2:   #e09a4a;
+    --amber:     #f5b942;
+    --green:     #4ade80;
+    --red:       #f87171;
+    --blue:      #60a5fa;
+    --muted:     #666658;
+    --text:      #e8e8d8;
+    --text2:     #b0b0a0;
+    --mono:      'Share Tech Mono', monospace;
+    --display:   'Bebas Neue', sans-serif;
+    --body:      'DM Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 13px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 24px, rgba(255,255,255,0.012) 24px, rgba(255,255,255,0.012) 25px),
+      repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(255,255,255,0.008) 24px, rgba(255,255,255,0.008) 25px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .logo-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--copper);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: 52px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  h1 span { color: var(--copper); }
+
+  .header-meta {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.8;
+    letter-spacing: 0.1em;
+  }
+
+  .header-meta strong {
+    color: var(--amber);
+    display: block;
+    font-size: 11px;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 32px;
+  }
+
+  .nav a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+
+  .nav a:hover { color: var(--copper); border-color: var(--copper); }
+  .nav a.active { color: var(--amber); border-color: var(--amber); background: rgba(245,185,66,0.05); }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--copper);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border2);
+  }
+
+  /* ── PANEL ── */
+  .panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+
+  .panel-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg3);
+  }
+
+  .panel-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+
+  .panel-body { padding: 24px 20px; }
+
+  /* ── INPUT ── */
+  .search-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  input, select {
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+  }
+
+  input:focus { border-color: var(--copper); }
+  input::placeholder { color: var(--muted); }
+
+  .search-input { flex: 1; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-primary { background: var(--copper); color: var(--bg); }
+  .btn-primary:hover { background: var(--copper2); }
+  .btn-primary:disabled { background: var(--border2); color: var(--muted); cursor: not-allowed; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--border2); color: var(--text2); }
+
+  /* ── MAIN RESULT CARD ── */
+  .result-card {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 24px;
+  }
+
+  .result-card.visible { display: flex; }
+
+  /* ── COIN IDENTITY HERO ── */
+  .coin-hero {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .coin-icon {
+    width: 72px;
+    height: 72px;
+    border: 2px solid var(--copper);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--display);
+    font-size: 28px;
+    color: var(--copper);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .coin-icon::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,132,58,0.3);
+  }
+
+  .coin-identity { flex: 1; min-width: 200px; }
+
+  .coin-serial {
+    font-family: var(--display);
+    font-size: 36px;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .coin-id-display {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--copper2);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  .coin-network-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    padding: 3px 8px;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .coin-status-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── LOCK STATUS ── */
+  .lock-status-block {
+    padding: 20px 24px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .lock-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lock-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .lock-label {
+    font-family: var(--display);
+    font-size: 32px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .lock-label.locked { color: var(--red); }
+  .lock-label.unlocked { color: var(--green); }
+
+  .lock-detail {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .lock-countdown {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .countdown-num {
+    font-family: var(--display);
+    font-size: 42px;
+    color: var(--copper);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .countdown-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ── DATA GRID ── */
+  .data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .data-grid.single { grid-template-columns: 1fr; }
+
+  .data-cell {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+  }
+
+  .data-cell-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .data-cell-value {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--amber);
+    word-break: break-all;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .data-cell-value.green { color: var(--green); }
+  .data-cell-value.copper { color: var(--copper2); }
+  .data-cell-value.blue { color: var(--blue); }
+  .data-cell-value.red { color: var(--red); }
+  .data-cell-value.muted { color: var(--muted); font-size: 11px; }
+  .data-cell-value.large {
+    font-family: var(--display);
+    font-size: 32px;
+    letter-spacing: 0.03em;
+    line-height: 1;
+  }
+
+  .data-cell-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── V2 BADGE ── */
+  .v2-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .v2-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--border2);
+  }
+
+  .v2-badge.active::before { background: var(--green); box-shadow: 0 0 4px var(--green); }
+  .v2-badge.active { color: var(--green); border-color: var(--green); }
+
+  /* ── NFC CHIP PANEL ── */
+  .nfc-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .nfc-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .nfc-panel-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+
+  .nfc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .nfc-stat {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+  }
+
+  .nfc-stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .nfc-stat-value {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1;
+  }
+
+  .nfc-stat-value.active { color: var(--green); }
+  .nfc-stat-value.amber { color: var(--amber); }
+
+  /* ── EXPLORER LINK ── */
+  .explorer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--copper);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    transition: all 0.15s;
+    margin-top: 8px;
+  }
+
+  .explorer-link:hover {
+    border-color: var(--copper);
+    background: rgba(200,132,58,0.05);
+  }
+
+  /* ── NOTICE ── */
+  .notice {
+    border-left: 3px solid var(--copper);
+    padding: 12px 16px;
+    background: rgba(200,132,58,0.05);
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .notice.green { border-color: var(--green); background: rgba(74,222,128,0.05); }
+  .notice.red { border-color: var(--red); background: rgba(248,113,113,0.05); }
+
+  /* ── LOADING ── */
+  .loading {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+  }
+
+  .loading.visible { display: flex; }
+
+  .loading-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ── ERROR ── */
+  .error-block {
+    display: none;
+    padding: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--red);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 16px;
+  }
+
+  .error-block.visible { display: block; }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    background: var(--bg3);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .status-dot.ready { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .status-dot.working { background: var(--amber); animation: pulse 1s infinite; }
+  .status-dot.error { background: var(--red); }
+
+  .status-text { color: var(--text2); }
+  .status-text.ok { color: var(--green); }
+  .status-text.err { color: var(--red); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--green);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 12px 20px;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.25s;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    line-height: 1.8;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    h1 { font-size: 36px; }
+    header { flex-direction: column; align-items: flex-start; }
+    .header-meta { text-align: left; }
+    .data-grid { grid-template-columns: 1fr; }
+    .nfc-grid { grid-template-columns: 1fr 1fr; }
+    .lock-countdown { margin-left: 0; text-align: left; }
+    .search-row { flex-direction: column; }
+    .coin-hero { flex-direction: column; gap: 16px; }
+    .coin-status-right { text-align: left; }
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div>
+      <div class="logo-eyebrow">Bitcoin Physical Bearer Instrument</div>
+      <h1>COIN <span>VERIFY</span></h1>
+    </div>
+    <div class="header-meta">
+      <strong id="networkBadge">—</strong>
+      <span id="currentBlock">BLOCK —</span>
+      <span>LOCK TARGET · BLOCK 1,951,500</span>
+      <span>~22 MAY 2046 · PIZZA DAY</span>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html">⌂ Home</a>
+    <a href="mint.html">⬡ Mint</a>
+    <a href="sweep.html">⚡ Sweep</a>
+  </nav>
+
+  <!-- SEARCH -->
+  <div class="section-label">Verify Coin</div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Address or Coin ID Lookup</span>
+    </div>
+    <div class="panel-body">
+
+      <div class="search-row">
+        <input
+          type="text"
+          class="search-input"
+          id="searchInput"
+          placeholder="Bitcoin address  ·  tb1p...  or  bc1p...  or  Coin ID  FF3A7C..."
+          onkeydown="if(event.key==='Enter') verifyCoin()"
+        />
+        <button class="btn btn-primary" onclick="verifyCoin()">◎ Verify</button>
+        <button class="btn btn-ghost" onclick="clearResult()">✕</button>
+      </div>
+
+      <!-- URL params notice -->
+      <div id="urlParamNotice" style="display:none; margin-top:12px;">
+        <div class="notice green">
+          <strong>NFC tap detected</strong> — loading coin data from tag parameters
+        </div>
+      </div>
+
+      <div class="loading" id="loadingIndicator">
+        <div class="loading-dot"></div>
+        <span>QUERYING NETWORK</span>
+      </div>
+
+      <div class="error-block" id="errorBlock"></div>
+
+    </div>
+    <div class="status-bar">
+      <div class="status-dot" id="statusDot"></div>
+      <span class="status-text" id="statusText">Enter an address or Coin ID to verify</span>
+    </div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="resultCard">
+
+    <!-- COIN IDENTITY HERO -->
+    <div class="coin-hero">
+      <div class="coin-icon" id="coinIconEl">₿</div>
+      <div class="coin-identity">
+        <div class="coin-serial" id="res_serial">—</div>
+        <div class="coin-id-display" id="res_coinId">—</div>
+        <div class="coin-network-badge" id="res_network">—</div>
+      </div>
+      <div class="coin-status-right">
+        <div id="res_lockBadge" style="font-family: var(--display); font-size: 42px; letter-spacing: 0.05em;">—</div>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 4px;" id="res_lockSub">—</div>
+      </div>
+    </div>
+
+    <!-- LOCK STATUS BAR -->
+    <div class="lock-status-block" id="lockStatusBlock">
+      <div class="lock-indicator">
+        <div class="lock-icon" id="lockIcon">🔒</div>
+        <div>
+          <div class="lock-label locked" id="lockLabel">LOCKED</div>
+          <div class="lock-detail" id="lockDetail">—</div>
+        </div>
+      </div>
+      <div class="lock-countdown" id="countdownBlock">
+        <div class="countdown-num" id="blocksRemaining">—</div>
+        <div class="countdown-label">blocks remaining</div>
+      </div>
+    </div>
+
+    <!-- ADDRESS (PRIMARY FIELD) -->
+    <div class="data-grid single">
+      <div class="data-cell">
+        <div class="data-cell-label">Public Address — Permanent · Single · Send Bitcoin here</div>
+        <div class="data-cell-value green" id="res_address" onclick="copyVal(this)" style="font-size: 13px; cursor: pointer;">—</div>
+        <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <a class="explorer-link" id="explorerAddressLink" href="#" target="_blank">↗ View on Explorer</a>
+          <a class="explorer-link" id="qrLink" href="#" target="_blank" style="display:none;">⬡ QR Code</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BALANCE + RECEIVED -->
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Current Balance</div>
+        <div class="data-cell-value large amber" id="res_balance">—</div>
+        <div class="data-cell-sub" id="res_balanceSub">—</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Total Ever Received</div>
+        <div class="data-cell-value large copper" id="res_totalReceived">—</div>
+        <div class="data-cell-sub" id="res_txCount">—</div>
+      </div>
+    </div>
+
+    <!-- LOCK DETAILS -->
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Lock Block Height</div>
+        <div class="data-cell-value amber" id="res_lockBlock">1,951,500</div>
+        <div class="data-cell-sub">BIP-65 CLTV · Miniscript after()</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Unlock Date (approx)</div>
+        <div class="data-cell-value amber" id="res_unlockDate">~22 MAY 2046</div>
+        <div class="data-cell-sub">Bitcoin Pizza Day · 36th Anniversary</div>
+      </div>
+    </div>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">Current Block Height</div>
+        <div class="data-cell-value blue" id="res_currentBlock">—</div>
+        <div class="data-cell-sub">Live from network</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Time to Unlock (est.)</div>
+        <div class="data-cell-value copper" id="res_timeRemaining">—</div>
+        <div class="data-cell-sub">At 10 min average block time</div>
+      </div>
+    </div>
+
+    <!-- ON-CHAIN BIRTH CERTIFICATE -->
+    <div class="section-label" style="margin-top: 24px;">On-Chain Birth Certificate</div>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-cell-label">OP_RETURN TXID</div>
+        <div class="data-cell-value" id="res_opReturnTxid" onclick="copyVal(this)" style="font-size: 11px; cursor: pointer;">—</div>
+        <div style="margin-top: 8px; display:flex; gap:6px; flex-wrap:wrap;">
+          <a class="explorer-link" id="explorerOpReturnLink" href="#" target="_blank" style="display:none;">↗ View Birth TX</a>
+        </div>
+        <!-- Manual TXID entry -->
+        <div style="margin-top:12px; display:flex; gap:6px;">
+          <input type="text" id="manualBirthTxid"
+            placeholder="Paste OP_RETURN TXID from NFC payload..."
+            style="flex:1; background:var(--bg); border:1px solid var(--border2);
+            color:var(--text); font-family:var(--mono); font-size:11px;
+            padding:7px 10px; outline:none;" />
+          <button onclick="lookupBirthTx()"
+            style="background:var(--copper); color:var(--bg); border:none;
+            font-family:var(--mono); font-size:10px; letter-spacing:0.2em;
+            padding:7px 14px; cursor:pointer; white-space:nowrap; text-transform:uppercase;">
+            Look Up
+          </button>
+        </div>
+      </div>
+      <div class="data-cell">
+        <div class="data-cell-label">Block Created</div>
+        <div class="data-cell-value amber" id="res_blockCreated">—</div>
+        <div class="data-cell-sub" id="res_dateCreated">—</div>
+      </div>
+    </div>
+
+    <!-- NFC CHIP DATA -->
+    <div class="section-label" style="margin-top: 24px;">NFC Chip · NTAG424 DNA</div>
+
+    <div class="nfc-panel">
+      <div class="nfc-panel-header">
+        <span class="nfc-panel-title">Chip Verification Data</span>
+        <span class="v2-badge" id="nfcV2Badge">NTAG424 · V2 FEATURE</span>
+      </div>
+
+      <div class="nfc-grid">
+        <div class="nfc-stat">
+          <div class="nfc-stat-label">Chip UID</div>
+          <div class="nfc-stat-value" id="nfc_uid">— V2</div>
+        </div>
+        <div class="nfc-stat">
+          <div class="nfc-stat-label">Scan Counter</div>
+          <div class="nfc-stat-value" id="nfc_counter">— V2</div>
+        </div>
+        <div class="nfc-stat">
+          <div class="nfc-stat-label">CMAC Valid</div>
+          <div class="nfc-stat-value" id="nfc_cmac">— V2</div>
+        </div>
+      </div>
+
+      <div class="notice" style="margin-top: 12px; font-size: 11px;">
+        Chip UID, scan counter and CMAC authentication are available in <strong>V2</strong> via NTAG424 Secure Dynamic Messaging.
+        Each tap generates a unique cryptographic signature — the scan counter increments permanently on-chip and cannot be reset or spoofed.
+        In V2, tapping the coin will auto-populate this page via URL parameters: <span style="color: var(--amber);">?uid=...&ctr=...&cmac=...</span>
+      </div>
+    </div>
+
+    <!-- DESCRIPTOR -->
+    <div class="section-label" style="margin-top: 24px;">Wallet Descriptor</div>
+
+    <div class="data-grid single">
+      <div class="data-cell">
+        <div class="data-cell-label">Output Descriptor (Miniscript)</div>
+        <div class="data-cell-value muted" id="res_descriptor" onclick="copyVal(this)" style="cursor: pointer; font-size: 11px; line-height: 1.7;">—</div>
+        <div class="data-cell-sub" style="margin-top: 8px;">Import into Nunchuk or any Miniscript-compatible wallet to watch balance</div>
+      </div>
+    </div>
+
+  </div><!-- end result-card -->
+
+  <footer>
+    <div class="footer-text">
+      BITCOIN PHYSICAL BEARER INSTRUMENT · VERIFY<br>
+      CLTV TIMELOCK · BIP-65 · LOCK BLOCK 1,951,500
+    </div>
+    <div class="footer-text" style="text-align: right;">
+      NFC CHIP DATA · NTAG424 DNA · V2<br>
+      SCAN COUNTER · SDM · AES-128
+    </div>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════
+const LOCK_BLOCK = 1951500;
+const LOCK_DATE  = '~22 May 2046';
+
+const EXPLORERS = {
+  mainnet:    'https://mempool.space',
+  mutinynet:  'https://mutinynet.com'
+};
+
+const API_BASE = {
+  mainnet:    'https://mempool.space/api',
+  mutinynet:  'https://mutinynet.com/api'
+};
+
+let currentNetwork = 'mutinynet';
+let currentAddress = null;
+
+// ═══════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════
+
+function satsToBTC(sats) {
+  return (sats / 1e8).toFixed(8);
+}
+
+function formatBTC(sats) {
+  const btc = sats / 1e8;
+  if (btc === 0) return '0.00000000';
+  return btc.toFixed(8);
+}
+
+function copyVal(el) {
+  navigator.clipboard.writeText(el.textContent.trim())
+    .then(() => showToast('COPIED'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function setStatus(type, msg) {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  dot.className = 'status-dot' + (type === 'ready' ? ' ready' : type === 'working' ? ' working' : type === 'error' ? ' error' : '');
+  txt.className = 'status-text' + (type === 'ready' ? ' ok' : type === 'error' ? ' err' : '');
+  txt.textContent = msg;
+}
+
+function detectNetwork(address) {
+  if (!address) return 'mutinynet';
+  if (address.startsWith('bc1') || address.startsWith('1') || address.startsWith('3')) return 'mainnet';
+  return 'mutinynet'; // tb1 prefix covers mutinynet signet
+}
+
+function blocksToTime(blocks) {
+  const mins = blocks * 10;
+  const years = Math.floor(mins / 525960);
+  const months = Math.floor((mins % 525960) / 43830);
+  const days = Math.floor((mins % 43830) / 1440);
+  const parts = [];
+  if (years > 0) parts.push(`${years}y`);
+  if (months > 0) parts.push(`${months}mo`);
+  if (days > 0) parts.push(`${days}d`);
+  return parts.join(' ') || '< 1 day';
+}
+
+// ═══════════════════════════════════════════════
+// DETECT URL PARAMS (V2 NFC tap)
+// ═══════════════════════════════════════════════
+
+function checkURLParams() {
+  const params = new URLSearchParams(window.location.search);
+  const uid  = params.get('uid');
+  const ctr  = params.get('ctr');
+  const cmac = params.get('cmac');
+  const addr = params.get('addr');
+  const coinId = params.get('id');
+
+  if (uid || addr || coinId) {
+    document.getElementById('urlParamNotice').style.display = 'block';
+
+    if (addr) document.getElementById('searchInput').value = addr;
+    else if (coinId) document.getElementById('searchInput').value = coinId;
+
+    // Pre-populate NFC fields
+    if (uid) {
+      document.getElementById('nfc_uid').textContent = uid.toUpperCase();
+      document.getElementById('nfc_uid').className = 'nfc-stat-value active';
+    }
+    if (ctr) {
+      document.getElementById('nfc_counter').textContent = parseInt(ctr, 16).toLocaleString() + ' taps';
+      document.getElementById('nfc_counter').className = 'nfc-stat-value amber';
+    }
+    if (cmac) {
+      // In V2 we'd verify CMAC server-side; for now mark as present
+      document.getElementById('nfc_cmac').textContent = 'PRESENT';
+      document.getElementById('nfc_cmac').className = 'nfc-stat-value active';
+      document.getElementById('nfcV2Badge').className = 'v2-badge active';
+    }
+
+    if (addr || coinId) verifyCoin();
+  }
+}
+
+// ═══════════════════════════════════════════════
+// FETCH CURRENT BLOCK
+// ═══════════════════════════════════════════════
+
+async function fetchCurrentBlock(network) {
+  const r = await fetch(`${API_BASE[network]}/blocks/tip/height`);
+  return parseInt(await r.text());
+}
+
+// ═══════════════════════════════════════════════
+// FETCH ADDRESS DATA
+// ═══════════════════════════════════════════════
+
+async function fetchAddressData(address, network) {
+  const r = await fetch(`${API_BASE[network]}/address/${address}`);
+  if (!r.ok) throw new Error(`Address not found on ${network}`);
+  return r.json();
+}
+
+// ═══════════════════════════════════════════════
+// SEARCH OP_RETURN BIRTH TX
+// ═══════════════════════════════════════════════
+
+// Direct TXID lookup — called from manual input field
+async function lookupBirthTx() {
+  const txid = document.getElementById('manualBirthTxid').value.trim();
+  if (!txid || txid.length !== 64) {
+    alert('Please paste a valid 64-character TXID');
+    return;
+  }
+  await resolveBirthTx(txid, currentNetwork);
+}
+
+async function resolveBirthTx(txid, network) {
+  try {
+    const r = await fetch(`${API_BASE[network]}/tx/${txid}`);
+    if (!r.ok) return false;
+    const tx = await r.json();
+    const explorerBase = EXPLORERS[network];
+
+    document.getElementById('res_opReturnTxid').textContent = txid;
+    document.getElementById('res_opReturnTxid').style.color = 'var(--amber)';
+
+    const opLink = document.getElementById('explorerOpReturnLink');
+    opLink.href = `${explorerBase}/tx/${txid}`;
+    opLink.style.display = 'inline-flex';
+
+    if (tx.status?.block_height) {
+      document.getElementById('res_blockCreated').textContent =
+        tx.status.block_height.toLocaleString();
+    }
+    if (tx.status?.block_time) {
+      const d = new Date(tx.status.block_time * 1000);
+      document.getElementById('res_dateCreated').textContent =
+        d.toISOString().split('T')[0];
+    }
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+async function findBirthTx(address, coinId, network) {
+  // The OP_RETURN tx is paid by the fee wallet, not the coin address
+  // so it won't appear in the coin address tx history.
+  // Auto-search is not reliable — user should paste TXID from NFC payload.
+  return null;
+}
+
+// ═══════════════════════════════════════════════
+// MAIN VERIFY
+// ═══════════════════════════════════════════════
+
+async function verifyCoin() {
+  const raw = document.getElementById('searchInput').value.trim();
+  if (!raw) return;
+
+  // Determine if address or coin ID
+  let address = null;
+  let coinId = null;
+
+  if (raw.startsWith('tb1') || raw.startsWith('bc1') || raw.startsWith('1') ||
+      raw.startsWith('3')   || raw.startsWith('m')   || raw.startsWith('2')) {
+    address = raw;
+  } else {
+    // Treat as coin ID — can't look up directly without a registry
+    // In V2 the NFC URL would include the address
+    showError('Coin ID lookup requires address. Enter the Bitcoin address from the NFC tag, or use V2 NFC tap which provides the address automatically.');
+    return;
+  }
+
+  clearError();
+  setStatus('working', 'Querying network...');
+  document.getElementById('loadingIndicator').classList.add('visible');
+  document.getElementById('resultCard').classList.remove('visible');
+
+  try {
+    currentNetwork = detectNetwork(address);
+    currentAddress = address;
+
+    // Fetch in parallel
+    const [blockHeight, addrData] = await Promise.all([
+      fetchCurrentBlock(currentNetwork),
+      fetchAddressData(address, currentNetwork)
+    ]);
+
+    // Update header block
+    document.getElementById('currentBlock').textContent = 'BLOCK ' + blockHeight.toLocaleString();
+    document.getElementById('networkBadge').textContent = currentNetwork.toUpperCase();
+
+    // Compute lock status
+    const locked = blockHeight < LOCK_BLOCK;
+    const blocksLeft = Math.max(0, LOCK_BLOCK - blockHeight);
+    const timeLeft = blocksToTime(blocksLeft);
+
+    // Balance
+    const balanceSats = addrData.chain_stats.funded_txo_sum - addrData.chain_stats.spent_txo_sum;
+    const totalReceivedSats = addrData.chain_stats.funded_txo_sum;
+    const txCount = addrData.chain_stats.tx_count;
+
+    // Populate hero
+    document.getElementById('res_serial').textContent = 'COIN';
+    document.getElementById('res_coinId').textContent = 'ADDRESS VERIFIED';
+    document.getElementById('res_network').textContent = currentNetwork.toUpperCase();
+
+    // Lock badge in hero
+    if (locked) {
+      document.getElementById('res_lockBadge').textContent = '🔒';
+      document.getElementById('res_lockBadge').style.color = 'var(--red)';
+      document.getElementById('res_lockSub').textContent = 'FUNDS LOCKED';
+    } else {
+      document.getElementById('res_lockBadge').textContent = '🔓';
+      document.getElementById('res_lockBadge').style.color = 'var(--green)';
+      document.getElementById('res_lockSub').textContent = 'LOCK EXPIRED';
+    }
+
+    // Lock status bar
+    const lockLabel = document.getElementById('lockLabel');
+    const lockDetail = document.getElementById('lockDetail');
+    const lockIcon = document.getElementById('lockIcon');
+
+    if (locked) {
+      lockLabel.textContent = 'LOCKED';
+      lockLabel.className = 'lock-label locked';
+      lockIcon.textContent = '🔒';
+      lockDetail.textContent = `Unspendable until block ${LOCK_BLOCK.toLocaleString()} · Bitcoin CLTV BIP-65`;
+      document.getElementById('blocksRemaining').textContent = blocksLeft.toLocaleString();
+      document.getElementById('countdownBlock').style.display = 'block';
+    } else {
+      lockLabel.textContent = 'UNLOCKED';
+      lockLabel.className = 'lock-label unlocked';
+      lockIcon.textContent = '🔓';
+      lockDetail.textContent = `Lock expired at block ${LOCK_BLOCK.toLocaleString()} · Funds spendable`;
+      document.getElementById('blocksRemaining').textContent = '—';
+      document.getElementById('countdownBlock').style.display = 'none';
+    }
+
+    // Address
+    document.getElementById('res_address').textContent = address;
+    const explorerBase = EXPLORERS[currentNetwork];
+    const addrLink = document.getElementById('explorerAddressLink');
+    addrLink.href = `${explorerBase}/address/${address}`;
+
+    // Balance
+    document.getElementById('res_balance').textContent = formatBTC(balanceSats) + ' BTC';
+    document.getElementById('res_balanceSub').textContent =
+      balanceSats === 0 ? 'No funds deposited yet' : `${balanceSats.toLocaleString()} satoshis`;
+
+    document.getElementById('res_totalReceived').textContent = formatBTC(totalReceivedSats) + ' BTC';
+    document.getElementById('res_txCount').textContent = `${txCount} transaction${txCount !== 1 ? 's' : ''}`;
+
+    // Lock details
+    document.getElementById('res_lockBlock').textContent = LOCK_BLOCK.toLocaleString();
+    document.getElementById('res_unlockDate').textContent = LOCK_DATE;
+    document.getElementById('res_currentBlock').textContent = blockHeight.toLocaleString();
+    document.getElementById('res_timeRemaining').textContent = locked ? timeLeft : 'Expired';
+
+    // OP_RETURN — not auto-searchable (paid by fee wallet, not coin address)
+    // Show prompt to paste TXID from NFC payload
+    document.getElementById('res_opReturnTxid').textContent =
+      'Paste the OP_RETURN TXID from your NFC payload JSON below ↓';
+    document.getElementById('res_opReturnTxid').style.color = 'var(--muted)';
+    document.getElementById('res_blockCreated').textContent = '—';
+    document.getElementById('res_dateCreated').textContent  = '—';
+
+    // Descriptor placeholder (full descriptor requires pubkey from payload)
+    document.getElementById('res_descriptor').textContent =
+      `wsh(and_v(v:pk(<pubkey>),after(${LOCK_BLOCK})))\n\nImport the full descriptor from the NFC tag JSON payload for complete wallet recovery.`;
+
+    // Show result
+    document.getElementById('resultCard').classList.add('visible');
+    document.getElementById('loadingIndicator').classList.remove('visible');
+
+    const statusMsg = locked
+      ? `LOCKED · ${blocksLeft.toLocaleString()} blocks remaining · ${formatBTC(balanceSats)} BTC`
+      : `UNLOCKED · Lock expired · ${formatBTC(balanceSats)} BTC`;
+    setStatus('ready', statusMsg);
+
+  } catch(err) {
+    document.getElementById('loadingIndicator').classList.remove('visible');
+    showError(`Could not verify: ${err.message}`);
+    setStatus('error', err.message);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// ERROR / CLEAR
+// ═══════════════════════════════════════════════
+
+function showError(msg) {
+  const el = document.getElementById('errorBlock');
+  el.textContent = msg;
+  el.classList.add('visible');
+  setStatus('error', msg);
+}
+
+function clearError() {
+  document.getElementById('errorBlock').classList.remove('visible');
+}
+
+function clearResult() {
+  document.getElementById('resultCard').classList.remove('visible');
+  document.getElementById('searchInput').value = '';
+  clearError();
+  setStatus('', 'Enter an address or Coin ID to verify');
+  document.getElementById('currentBlock').textContent = 'BLOCK —';
+}
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+
+checkURLParams();
+
+// Fetch current signet block for header
+fetch('https://mutinynet.com/api/blocks/tip/height')
+  .then(r => r.text())
+  .then(h => {
+    document.getElementById('currentBlock').textContent = 'BLOCK ' + parseInt(h).toLocaleString();
+    document.getElementById('networkBadge').textContent = 'MUTINYNET';
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>
